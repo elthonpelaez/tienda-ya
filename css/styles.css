@@ -1,0 +1,942 @@
+/* ==========================================================================
+   YA! - TU TIENDA LATINA
+   ESTILOS GENERALES Y ESTRUCTURA COMPLETA
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --color-primary: #ffe600;
+  --color-dark-bg: #121212;
+  --color-card-bg: #1e1e1e;
+  --color-navbar-bg: #000000;
+  --color-text-white: #ffffff;
+  --color-text-muted: #cccccc;
+  --color-border: #333333;
+  --color-danger: #ff4757;
+  --color-success: #25d366;
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-white);
+  scroll-behavior: smooth;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* ==========================================================================
+   1. BARRA DE NAVEGACIÓN Y SELECTOR DE IDIOMA
+   ========================================================================== */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 5%;
+  background-color: var(--color-navbar-bg);
+  border-bottom: 3px solid var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.logo-small {
+  height: 35px;
+  object-fit: contain;
+}
+
+.nav-brand span {
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-grow: 1;
+}
+
+.nav-links a {
+  color: var(--color-text-white);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+}
+
+.lang-selector-wrapper {
+  margin-left: 15px;
+  flex-shrink: 0;
+}
+
+.lang-select {
+  background-color: #111111;
+  color: #ffffff;
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.lang-select:hover {
+  border-color: #ffffff;
+}
+
+/* ==========================================================================
+   2. BOTÓN DE WHATSAPP FLOTANTE
+   ========================================================================== */
+
+.floating-cart-container {
+  position: fixed;
+  top: 75px;
+  right: 5%;
+  z-index: 999;
+}
+
+.cart-btn {
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.2s ease,
+    background-color 0.3s ease;
+}
+
+.cart-btn:hover {
+  transform: scale(1.05);
+  background-color: var(--color-text-white);
+}
+
+/* ==========================================================================
+   3. PORTADA DE BIENVENIDA
+   ========================================================================== */
+
+.hero-screen {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: radial-gradient(
+    circle,
+    rgba(30, 30, 30, 1) 0%,
+    rgba(18, 18, 18, 1) 100%
+  );
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.logo-hero {
+  width: 380px;
+  max-width: 85%;
+  object-fit: contain;
+  margin-bottom: -60px;
+  animation: latidoLogo 2.5s infinite ease-in-out;
+}
+
+@keyframes latidoLogo {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.4));
+  }
+  14% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 35px rgba(255, 230, 0, 0.8));
+  }
+  28% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.4));
+  }
+  42% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 40px rgba(255, 230, 0, 0.9));
+  }
+  70% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.4));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.4));
+  }
+}
+
+.hero-slogan {
+  color: var(--color-primary);
+  font-size: 2.3rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.hero-subtext {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  margin-bottom: 25px;
+  max-width: 550px;
+  line-height: 1.5;
+}
+
+.btn-entrar {
+  background-color: var(--color-primary);
+  color: #000000;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 16px 42px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 230, 0, 0.4);
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.btn-entrar:hover {
+  transform: scale(1.08);
+  background-color: var(--color-text-white);
+}
+
+.destello-activo::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 230, 0, 0.6) 50%,
+    transparent 70%
+  );
+  animation: animacionDestello 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes animacionDestello {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   4. BANNER DE ENVÍOS
+   ========================================================================== */
+
+.shipping-banner {
+  background-color: #1a1a1a;
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  text-align: center;
+}
+
+.shipping-item span {
+  font-size: 0.95rem;
+  color: var(--color-text-white);
+}
+
+.shipping-item strong {
+  color: var(--color-primary);
+}
+
+.shipping-selector-group {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.shipping-selector-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+}
+
+.shipping-selector-group select {
+  width: 100%;
+  padding: 10px;
+  background-color: #111111;
+  color: #ffffff;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+/* ==========================================================================
+   5. SECCIÓN QUIÉNES SOMOS
+   ========================================================================== */
+
+.about-container {
+  max-width: 780px;
+  margin: 50px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-card {
+  background-color: var(--color-card-bg);
+  padding: 35px 40px;
+  border-radius: 16px;
+  border: 1px solid var(--color-primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #dddddd;
+  text-align: center;
+  width: 100%;
+}
+
+.about-card h3 {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.about-card p {
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   6. CONTENEDOR GENERAL Y PRODUCTOS
+   ========================================================================== */
+
+.seccion-content {
+  width: 100%;
+}
+
+.container {
+  padding: 40px 5%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  width: 100%;
+}
+
+.card {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-primary);
+}
+
+.card-img-wrapper {
+  background-color: #ffffff;
+  height: 190px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.card-img-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.card-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  color: var(--color-text-white);
+}
+
+.price-qty-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.quantity-control-sm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-qty-sm {
+  background-color: var(--color-primary);
+  color: #000000;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.btn-qty-sm:hover {
+  transform: scale(1.15);
+  background-color: #ffffff;
+}
+
+.qty-number-sm {
+  font-size: 1.05rem;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+  color: var(--color-text-white);
+}
+
+.btn-add {
+  width: 100%;
+  padding: 11px;
+  background-color: var(--color-primary);
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   7. CARRUSEL 3D
+   ========================================================================== */
+
+.carousel-3d-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px auto;
+  max-width: 900px;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.carousel-card {
+  background-color: var(--color-card-bg);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.main-card {
+  width: 330px;
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 8px 25px rgba(255, 230, 0, 0.25);
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.side-card {
+  width: 220px;
+  opacity: 0.35;
+  filter: blur(1px);
+  transform: scale(0.85);
+  cursor: pointer;
+  border: 1px solid #444444;
+}
+
+.side-card:hover {
+  opacity: 0.6;
+}
+
+.carousel-img-wrapper {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.carousel-img-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carousel-arrow {
+  background-color: var(--color-primary);
+  color: #000000;
+  border: none;
+  font-size: 1.8rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  flex-shrink: 0;
+  transition:
+    transform 0.2s ease,
+    background-color 0.3s ease;
+}
+
+.carousel-arrow:hover {
+  transform: scale(1.1);
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   8. MODAL, FORMULARIO Y PAGO CON ICONOS / COPIADO
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-box {
+  background-color: var(--color-card-bg);
+  border: 2px solid var(--color-primary);
+  border-radius: 15px;
+  padding: 25px;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--color-text-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-box h2 {
+  color: var(--color-primary);
+  margin-bottom: 15px;
+}
+
+.order-summary {
+  max-height: 180px;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.btn-remove-item {
+  background-color: var(--color-danger);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 10px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-top: 8px;
+}
+
+/* FORMULARIO CLIENTE */
+.client-form-container {
+  background-color: #141414;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.form-section-title {
+  color: var(--color-primary);
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+}
+
+.form-row {
+  margin-bottom: 10px;
+}
+
+.form-row-2col {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.phone-input-group {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.select-code {
+  width: 110px !important;
+  flex-shrink: 0;
+}
+
+.form-row-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.form-row-time label {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.time-inputs {
+  display: flex;
+  gap: 6px;
+  width: 160px;
+}
+
+.input-time {
+  text-align: center;
+}
+
+.select-ampm {
+  width: 70px !important;
+  text-align: center;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 9px 12px;
+  background-color: #000000;
+  color: var(--color-text-white);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.modal-input:focus {
+  border-color: var(--color-primary);
+}
+
+/* ESTILOS DE MÉTODOS DE PAGO Y COPIADO */
+.payment-info {
+  background-color: #111111;
+  padding: 14px;
+  border-radius: 10px;
+  border-left: 4px solid var(--color-primary);
+  margin-bottom: 20px;
+  font-size: 0.88rem;
+}
+
+.payment-title {
+  margin-bottom: 10px;
+}
+
+.payment-method-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 1px solid #282828;
+}
+
+.method-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mbway-badge {
+  background-color: #e2001a;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.iban-badge {
+  background-color: #ffe600;
+  color: #000000;
+  font-weight: 900;
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.iban-number {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.btn-copy-small {
+  background-color: #2a2a2a;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-copy-small:hover {
+  background-color: var(--color-primary);
+  color: #000000;
+}
+
+.payment-note {
+  display: block;
+  margin-top: 8px;
+  color: #ffe600;
+  font-size: 0.82rem;
+}
+
+.btn-confirm-whatsapp {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--color-success);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.3s ease;
+}
+
+.btn-confirm-whatsapp:hover {
+  transform: scale(1.02);
+  opacity: 0.95;
+}
+
+footer {
+  margin-top: auto;
+  background-color: var(--color-navbar-bg);
+  text-align: center;
+  padding: 20px;
+  color: #888888;
+  border-top: 1px solid #222222;
+  width: 100%;
+}
+
+footer strong {
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 0.8rem;
+    gap: 10px;
+  }
+  .nav-links {
+    gap: 15px;
+    width: 100%;
+  }
+  .nav-links a {
+    font-size: 0.88rem;
+  }
+  .floating-cart-container {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+  }
+  .logo-hero {
+    width: 280px;
+    margin-bottom: -40px;
+  }
+  .hero-slogan {
+    font-size: 1.75rem;
+    letter-spacing: 2px;
+  }
+  .hero-subtext {
+    font-size: 1rem;
+  }
+  .btn-entrar {
+    font-size: 1.05rem;
+    padding: 12px 30px;
+  }
+  .side-card {
+    display: none !important;
+  }
+  .main-card {
+    width: 100%;
+    max-width: 290px;
+  }
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  .about-card {
+    padding: 25px 20px;
+    font-size: 0.98rem;
+  }
+  .shipping-banner {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .form-row-2col {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .payment-method-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .btn-copy-small {
+    align-self: flex-end;
+  }
+}

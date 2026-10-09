@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ya! - Tu Tienda Latina en Europa</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR CON SELECTOR DE IDIOMA -->
+    <header class="navbar" id="mainNavbar" style="display: none">
+      <div class="nav-brand" onclick="mostrarSeccion('portada')">
+        <img src="assets/img/logo.png" alt="Logo ya!" class="logo-small" />
+        <span>ya!</span>
+      </div>
+
+      <nav class="nav-links">
+        <a
+          href="#nuestros-productos"
+          onclick="mostrarSeccion('nuestros-productos')"
+          data-i18n="nav_nuestros_productos"
+          >Nuestros Productos</a
+        >
+        <a
+          href="#productos"
+          onclick="mostrarSeccion('productos')"
+          data-i18n="nav_productos"
+          >Productos</a
+        >
+        <a
+          href="#quienes-somos"
+          onclick="mostrarSeccion('quienes-somos')"
+          data-i18n="nav_quienes_somos"
+          >Quiénes Somos</a
+        >
+      </nav>
+
+      <!-- SELECTOR DE IDIOMA -->
+      <div class="lang-selector-wrapper">
+        <select
+          id="selectIdioma"
+          onchange="cambiarIdioma(this.value)"
+          class="lang-select"
+        >
+          <option value="es">🇪🇸 ES</option>
+          <option value="pt">🇵🇹 PT</option>
+          <option value="en">🇬🇧 EN</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- BOTÓN DE WHATSAPP FLOTANTE -->
+    <div
+      class="floating-cart-container"
+      id="floatingCart"
+      style="display: none"
+    >
+      <button class="cart-btn" onclick="abrirModalResumen()">
+        🛒 <span data-i18n="cart_btn">Pedir por WhatsApp</span> (<span
+          id="cartCount"
+          >0</span
+        >)
+      </button>
+    </div>
+
+    <!-- 1. PORTADA DE BIENVENIDA -->
+    <section id="portada" class="hero-screen">
+      <div class="hero-container">
+        <img src="assets/img/logo.png" alt="Logo ya!" class="logo-hero" />
+        <h1 class="hero-slogan" data-i18n="hero_slogan">TU TIENDA LATINA</h1>
+        <p class="hero-subtext" data-i18n="hero_subtext">
+          Sabor latino directo a tu hogar desde Portugal para toda Europa 🇵🇹🇪🇺
+        </p>
+        <button
+          class="btn-entrar"
+          onclick="entrarALaTienda()"
+          data-i18n="btn_entrar"
+        >
+          ENTRAR A LA TIENDA ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. CATÁLOGO GENERAL -->
+    <section
+      id="nuestros-productos"
+      class="seccion-content"
+      style="display: none"
+    >
+      <div class="container">
+        <h2 class="section-title" data-i18n="section_productos_titulo">
+          🇦🇷 Nuestros Productos Argentinos
+        </h2>
+
+        <div class="product-grid" id="productGrid">
+          <!-- Carga dinámica del grid -->
+        </div>
+
+        <!-- BANNER DE ENVÍOS AL FINAL DEL CATÁLOGO -->
+        <div class="shipping-banner" style="margin-top: 40px; margin-bottom: 0">
+          <div class="shipping-item">
+            <span
+              >🏬 <strong>Retiro en Tienda (Tondela):</strong> Gratuito</span
+            >
+          </div>
+          <div class="shipping-item">
+            <span
+              >🚗 <strong>Tondela & Cercanías:</strong> Envío 2,00€ (Gratis >
+              20€)</span
+            >
+          </div>
+          <div class="shipping-item">
+            <span
+              >📍 <strong>Viseu & Alrededores:</strong> Envío 3,50€ (Gratis >
+              40€)</span
+            >
+          </div>
+          <div class="shipping-item">
+            <span
+              >📦
+              <strong>Resto de Portugal Continental (vía CTT):</strong> Envío
+              5,50€ (Gratis > 60€)</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CARRUSEL CON VISTA PREVIA -->
+    <section id="productos" class="seccion-content" style="display: none">
+      <div class="container">
+        <h2 class="section-title" data-i18n="section_destacados">
+          Destacados en Carrusel
+        </h2>
+
+        <div class="carousel-3d-wrapper">
+          <button class="carousel-arrow prev" onclick="cambiarSlide(-1)">
+            ❮
+          </button>
+
+          <div class="carousel-track">
+            <div
+              class="carousel-card side-card"
+              id="sidePrev"
+              onclick="cambiarSlide(-1)"
+            ></div>
+            <div class="carousel-card main-card" id="mainCard"></div>
+            <div
+              class="carousel-card side-card"
+              id="sideNext"
+              onclick="cambiarSlide(1)"
+            ></div>
+          </div>
+
+          <button class="carousel-arrow next" onclick="cambiarSlide(1)">
+            ❯
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. QUIÉNES SOMOS CON TANGO DE FONDO -->
+    <section id="quienes-somos" class="seccion-content" style="display: none">
+      <audio id="audioTango" loop preload="auto">
+        <source src="assets/audio/tango.mp3" type="audio/mpeg" />
+      </audio>
+
+      <div class="about-container">
+        <h2 class="section-title" data-i18n="section_historia">
+          Nuestra Historia
+        </h2>
+        <div class="about-card">
+          <h3><strong>ya!</strong> - Empresa Familiar</h3>
+          <p>
+            <strong>ya!</strong> nace en <strong>2023 en Portugal</strong> como
+            un emprendimiento familiar enfocado en mantener viva nuestra
+            cultura. Llevamos tus productos latinos favoritos directo a tu mesa
+            en cualquier lugar de Europa.
+          </p>
+          <p>
+            Sabemos lo importante que es compartir un buen mate con la familia o
+            amigos, disfrutar de un dulce de leche de calidad o brindar con un
+            fernet de verdad. Por eso seleccionamos cuidadosamente productos
+            importados para garantizártelos al mejor precio.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL DE RESUMEN, FICHA DEL CLIENTE Y PAGO INTERACTIVO -->
+    <div class="modal-overlay" id="orderModal" style="display: none">
+      <div class="modal-box">
+        <button class="modal-close" onclick="cerrarModalResumen()">✕</button>
+        <h2 data-i18n="modal_titulo">Resumen de tu Pedido</h2>
+
+        <div class="order-summary" id="orderSummaryContent"></div>
+
+        <!-- SELECTOR DE ZONA / PAÍS -->
+        <div class="shipping-selector-group">
+          <label for="selectZonaEnvio"
+            ><strong data-i18n="modal_modalidad"
+              >🚚 Modalidad / Zona de Entrega:</strong
+            ></label
+          >
+          <select id="selectZonaEnvio" onchange="actualizarCostoEnvio()">
+            <option value="retiro">
+              Retiro Presencial en Tienda (Tondela) - Gratis
+            </option>
+            <option value="tondela">
+              Tondela y Cercanías (Envío 2,00€ | Gratis > 20€)
+            </option>
+            <option value="viseu">
+              Viseu y Alrededores (Envío 3,50€ | Gratis > 40€)
+            </option>
+            <option value="ctt">
+              Resto de Portugal Continental (vía CTT) (Envío 5,50€ | Gratis >
+              60€)
+            </option>
+            <option value="islas">
+              Islas de Portugal (Madeira y Azores) (Tarifa CTT a coordinar)
+            </option>
+            <option value="europa">
+              Otros Países de Europa (España, Francia, etc.) (A coordinar)
+            </option>
+          </select>
+        </div>
+
+        <!-- FICHA DE DATOS DEL CLIENTE -->
+        <div class="client-form-container">
+          <p class="form-section-title">
+            👤
+            <strong data-i18n="modal_datos_cliente"
+              >Datos del Cliente para la Entrega:</strong
+            >
+          </p>
+
+          <!-- Nombre y Apellido -->
+          <div class="form-row-2col">
+            <input
+              type="text"
+              id="inputNombre"
+              placeholder="Nombre *"
+              class="modal-input"
+              required
+            />
+            <input
+              type="text"
+              id="inputApellido"
+              placeholder="Apellido *"
+              class="modal-input"
+              required
+            />
+          </div>
+
+          <!-- Teléfono con Código de País y Email -->
+          <div class="form-row-2col">
+            <div class="phone-input-group">
+              <select id="selectCodigoPais" class="modal-input select-code">
+                <option value="+351">🇵🇹 +351</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+41">🇨🇭 +41</option>
+              </select>
+              <input
+                type="tel"
+                id="inputTelefono"
+                placeholder="Teléfono *"
+                class="modal-input"
+                required
+              />
+            </div>
+            <input
+              type="email"
+              id="inputEmail"
+              placeholder="Email"
+              class="modal-input"
+            />
+          </div>
+
+          <!-- CAMPOS EXCLUSIVOS PARA ENVÍO A DOMICILIO -->
+          <div id="grupoEnvioDomicilio" style="display: none">
+            <div class="form-row">
+              <input
+                type="text"
+                id="inputDireccion"
+                placeholder="Dirección Completa (Calle, Número, Piso/Puerta) *"
+                class="modal-input"
+              />
+            </div>
+            <div class="form-row-2col">
+              <input
+                type="text"
+                id="inputCodigoPostal"
+                placeholder="Código Postal (ej: 3460-001) *"
+                class="modal-input"
+              />
+              <input
+                type="text"
+                id="inputCiudad"
+                placeholder="Ciudad / Localidad *"
+                class="modal-input"
+              />
+            </div>
+
+            <!-- HORARIO EXCLUSIVO PARA ENTREGAS LOCALES -->
+            <div
+              class="form-row-time"
+              id="grupoHorarioLocal"
+              style="display: none"
+            >
+              <label>Preferencia horaria (Entrega local):</label>
+              <div class="time-inputs">
+                <input
+                  type="text"
+                  id="inputHora"
+                  placeholder="Ej: 10:30"
+                  class="modal-input input-time"
+                />
+                <select id="selectAmPm" class="modal-input select-ampm">
+                  <option value="AM">AM</option>
+                  <option value="PM" selected>PM</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- CAMPO EXCLUSIVO PARA RETIRO EN TIENDA -->
+          <div id="grupoRetiroTienda" style="display: block">
+            <div class="form-row">
+              <input
+                type="text"
+                id="inputHorarioRetiro"
+                placeholder="Día y Horario estimado de retiro en Tondela *"
+                class="modal-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- INFORMACIÓN DE PAGO MEJORADA CON MB WAY Y COPIADO -->
+        <div class="payment-info">
+          <p class="payment-title">
+            📲 <strong>Métodos de pago aceptados:</strong>
+          </p>
+
+          <!-- MB WAY CON OPCIÓN DE ABRIR Y COPIAR -->
+          <div class="payment-method-row">
+            <div class="method-label">
+              <span class="mbway-badge">MB WAY</span>
+              <strong>+351 927 797 956</strong>
+            </div>
+            <div style="display: flex; gap: 5px">
+              <button
+                class="btn-copy-small"
+                onclick="abrirOCopiarMBWay('+351927797956', this)"
+              >
+                📲 Abrir App
+              </button>
+              <button
+                class="btn-copy-small"
+                onclick="copiarTexto('+351927797956', this)"
+              >
+                📋 Copiar
+              </button>
+            </div>
+          </div>
+
+          <!-- IBAN CON BOTÓN DE COPIADO RÁPIDO -->
+          <div class="payment-method-row">
+            <div class="method-label">
+              <span class="iban-badge">IBAN</span>
+              <span class="iban-number">PT50 0007 0000 0064 7452 9822 3</span>
+            </div>
+            <button
+              class="btn-copy-small"
+              onclick="copiarTexto('PT50000700000064745298223', this)"
+            >
+              📋 Copiar IBAN
+            </button>
+          </div>
+
+          <small class="payment-note"
+            >📌 Por favor, envía el comprobante de pago al efectuar tu
+            compra.</small
+          >
+        </div>
+
+        <button
+          class="btn-confirm-whatsapp"
+          onclick="enviarPedidoWhatsApp()"
+          data-i18n="btn_confirmar_wa"
+        >
+          Confirmar y Enviar a WhatsApp ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+      <p>
+        &copy; 2026 <strong>ya!</strong> - Tu Tienda Latina. Todos los derechos
+        reservados.
+      </p>
+    </footer>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
