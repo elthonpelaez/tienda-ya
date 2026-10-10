@@ -1,76 +1,75 @@
 // Catálogo Oficial de Productos Argentinos
-const productos = [
+const productosBase = [
   {
     id: 1,
-    nombre: "Yerba Mate Playadito 1kg",
+    baseNombre: "Playadito 1kg",
     precio: 8.5,
     imagen: "assets/img/playadito.jpg",
   },
   {
     id: 2,
-    nombre: "Yerba Mate Amanda 1kg",
+    baseNombre: "Amanda 1kg",
     precio: 7.9,
     imagen: "assets/img/amanda.jpg",
   },
   {
     id: 3,
-    nombre: "Yerba Mate Rosamonte 1kg",
+    baseNombre: "Rosamonte 1kg",
     precio: 8.2,
     imagen: "assets/img/rosamonte.jpg",
   },
   {
     id: 4,
-    nombre: "Yerba Mate Baldo 1kg",
+    baseNombre: "Baldo 1kg",
     precio: 8.9,
     imagen: "assets/img/baldo.jpg",
   },
-  {
-    id: 5,
-    nombre: "Yerba Mate CBSé 1kg",
-    precio: 7.5,
-    imagen: "assets/img/cbse.jpg",
-  },
+  { id: 5, baseNombre: "CBSé 1kg", precio: 7.5, imagen: "assets/img/cbse.jpg" },
   {
     id: 6,
-    nombre: "Yerba Mate Taragüí 1kg",
+    baseNombre: "Taragüí 1kg",
     precio: 7.9,
     imagen: "assets/img/taragui.jpg",
   },
   {
     id: 7,
-    nombre: "Yerba Mate Mañanita 1kg",
+    baseNombre: "Mañanita 1kg",
     precio: 7.8,
     imagen: "assets/img/mananita.jpg",
   },
   {
     id: 8,
-    nombre: "Yerba Mate Canarias 1kg",
+    baseNombre: "Canarias 1kg",
     precio: 9.5,
     imagen: "assets/img/canarias.jpg",
   },
   {
     id: 9,
-    nombre: "Gancia Americano 1L",
+    baseNombre: "Gancia Americano 1L",
     precio: 12.5,
     imagen: "assets/img/gancia.jpg",
+    esLicor: true,
   },
   {
     id: 10,
-    nombre: "Fernet Branca 1L",
+    baseNombre: "Fernet Branca 1L",
     precio: 18.9,
     imagen: "assets/img/fernet.jpg",
+    esLicor: true,
   },
   {
     id: 11,
-    nombre: "Dulce de Leche Havanna 450g",
+    baseNombre: "Dulce de Leche Havanna 450g",
     precio: 6.5,
     imagen: "assets/img/dulce-havanna.jpg",
+    esEspecial: true,
   },
   {
     id: 12,
-    nombre: "Set Matero + Bombilla",
+    baseNombre: "Set Matero + Bombilla",
     precio: 15.0,
     imagen: "assets/img/set-matero.jpg",
+    esEspecial: true,
   },
 ];
 
@@ -87,32 +86,116 @@ let tarifaACoordinar = false;
 
 const NUMERO_WHATSAPP = "351927798000";
 
-// Inicializar cantidades por defecto
-productos.forEach((p) => (cantidadesGrid[p.id] = 1));
+// Inicializar cantidades
+productosBase.forEach((p) => (cantidadesGrid[p.id] = 1));
 
 /* ==========================================================================
-   GESTIÓN DE COPIADO E INTEGRACIÓN MB WAY
+   DICCIONARIOS Y TRADUCCIÓN DINÁMICA
+   ========================================================================== */
+
+const traducciones = {
+  es: {
+    nav_nuestros_productos: "Nuestros Productos",
+    nav_productos: "Productos",
+    nav_quienes_somos: "Quiénes Somos",
+    btn_entrar: "ENTRAR A LA TIENDA ➔",
+    hero_slogan: "TIENDA ARGENTINA",
+    hero_subtext:
+      "Sabor Argentino directo a tu hogar desde Portugal para toda Europa 🇵🇹🇪🇺",
+    section_productos_titulo: "🇦🇷 Nuestros Productos",
+    section_destacados: "Destacados en Carrusel",
+    section_historia: "Nuestra Historia",
+    modal_titulo: "Resumen de tu Pedido",
+    modal_modalidad: "🚚 Modalidad / Zona de Entrega:",
+    modal_datos_cliente: "Datos del Cliente para la Entrega:",
+    cart_btn: "Pedir por WhatsApp",
+    btn_confirmar_wa: "Confirmar y Enviar a WhatsApp ➔",
+    prefix_yerba: "Yerba Mate",
+  },
+  pt: {
+    nav_nuestros_productos: "Nossos Produtos",
+    nav_productos: "Produtos",
+    nav_quienes_somos: "Quem Somos",
+    btn_entrar: "ENTRAR NA LOJA ➔",
+    hero_slogan: "LOJA ARGENTINA",
+    hero_subtext:
+      "Sabor Argentino direto para a tua casa de Portugal para toda a Europa 🇵🇹🇪🇺",
+    section_productos_titulo: "🇦🇷 Nossos Produtos",
+    section_destacados: "Destaques em Carrossel",
+    section_historia: "A Nossa História",
+    modal_titulo: "Resumo da tua Encomenda",
+    modal_modalidad: "🚚 Modalidade / Zona de Entrega:",
+    modal_datos_cliente: "Dados do Cliente para a Entrega:",
+    cart_btn: "Encomendar por WhatsApp",
+    btn_confirmar_wa: "Confirmar e Enviar para WhatsApp ➔",
+    prefix_yerba: "Erva Mate",
+  },
+  en: {
+    nav_nuestros_productos: "Our Products",
+    nav_productos: "Products",
+    nav_quienes_somos: "About Us",
+    btn_entrar: "ENTER STORE ➔",
+    hero_slogan: "ARGENTINE STORE",
+    hero_subtext:
+      "Argentine flavor straight to your home from Portugal to all Europe 🇵🇹🇪🇺",
+    section_productos_titulo: "🇦🇷 Our Products",
+    section_destacados: "Featured Items",
+    section_historia: "Our History",
+    modal_titulo: "Order Summary",
+    modal_modalidad: "🚚 Delivery Method / Zone:",
+    modal_datos_cliente: "Customer Details for Delivery:",
+    cart_btn: "Order via WhatsApp",
+    btn_confirmar_wa: "Confirm & Send to WhatsApp ➔",
+    prefix_yerba: "Herbal Mate Tea",
+  },
+};
+
+let idiomaActual = localStorage.getItem("ya_idioma") || "es";
+
+function obtenerNombreProducto(p) {
+  if (p.esLicor || p.esEspecial) return p.baseNombre;
+  const prefijo = traducciones[idiomaActual].prefix_yerba;
+  return `${prefijo} ${p.baseNombre}`;
+}
+
+function cambiarIdioma(lang) {
+  idiomaActual = lang;
+  localStorage.setItem("ya_idioma", lang);
+
+  const elementos = document.querySelectorAll("[data-i18n]");
+  elementos.forEach((el) => {
+    const clave = el.getAttribute("data-i18n");
+    if (traducciones[lang] && traducciones[lang][clave]) {
+      el.innerText = traducciones[lang][clave];
+    }
+  });
+
+  const select = document.getElementById("selectIdioma");
+  if (select) select.value = lang;
+
+  renderizarProductos();
+  renderizarCarrusel();
+  renderizarModalContenido();
+}
+
+/* ==========================================================================
+   COPIADO Y REDIRECCIÓN MB WAY
    ========================================================================== */
 
 function copiarTexto(texto, elementoBoton) {
   reproducirSonidoPop();
-  navigator.clipboard
-    .writeText(texto)
-    .then(() => {
-      const textoOriginal = elementoBoton.innerText;
-      elementoBoton.innerText = "¡Copiado! ✓";
-      elementoBoton.style.backgroundColor = "#25d366";
-      elementoBoton.style.color = "#ffffff";
+  navigator.clipboard.writeText(texto).then(() => {
+    const textoOriginal = elementoBoton.innerText;
+    elementoBoton.innerText = "¡Copiado! ✓";
+    elementoBoton.style.backgroundColor = "#25d366";
+    elementoBoton.style.color = "#ffffff";
 
-      setTimeout(() => {
-        elementoBoton.innerText = textoOriginal;
-        elementoBoton.style.backgroundColor = "";
-        elementoBoton.style.color = "";
-      }, 1800);
-    })
-    .catch((err) => {
-      console.error("Error al copiar: ", err);
-    });
+    setTimeout(() => {
+      elementoBoton.innerText = textoOriginal;
+      elementoBoton.style.backgroundColor = "";
+      elementoBoton.style.color = "";
+    }, 1800);
+  });
 }
 
 function abrirOCopiarMBWay(numero, elementoBoton) {
@@ -133,82 +216,6 @@ function abrirOCopiarMBWay(numero, elementoBoton) {
 }
 
 /* ==========================================================================
-   DICCIONARIO DE IDIOMAS (ESPAÑOL, PORTUGUÉS, INGLÉS)
-   ========================================================================== */
-
-const traducciones = {
-  es: {
-    nav_nuestros_productos: "Nuestros Productos",
-    nav_productos: "Productos",
-    nav_quienes_somos: "Quiénes Somos",
-    btn_entrar: "ENTRAR A LA TIENDA ➔",
-    hero_slogan: "TU TIENDA LATINA",
-    hero_subtext:
-      "Sabor latino directo a tu hogar desde Portugal para toda Europa 🇵🇹🇪🇺",
-    section_productos_titulo: "🇦🇷 Nuestros Productos Argentinos",
-    section_destacados: "Destacados en Carrusel",
-    section_historia: "Nuestra Historia",
-    modal_titulo: "Resumen de tu Pedido",
-    modal_modalidad: "🚚 Modalidad / Zona de Entrega:",
-    modal_datos_cliente: "Datos del Cliente para la Entrega:",
-    cart_btn: "Pedir por WhatsApp",
-    btn_confirmar_wa: "Confirmar y Enviar a WhatsApp ➔",
-  },
-  pt: {
-    nav_nuestros_productos: "Nossos Produtos",
-    nav_productos: "Produtos",
-    nav_quienes_somos: "Quem Somos",
-    btn_entrar: "ENTRAR NA LOJA ➔",
-    hero_slogan: "A TUA LOJA LATINA",
-    hero_subtext:
-      "Sabor latino direto para a tua casa de Portugal para toda a Europa 🇵🇹🇪🇺",
-    section_productos_titulo: "🇦🇷 Nossos Produtos Argentinos",
-    section_destacados: "Destaques em Carrossel",
-    section_historia: "A Nossa História",
-    modal_titulo: "Resumo da tua Encomenda",
-    modal_modalidad: "🚚 Modalidade / Zona de Entrega:",
-    modal_datos_cliente: "Dados do Cliente para a Entrega:",
-    cart_btn: "Encomendar por WhatsApp",
-    btn_confirmar_wa: "Confirmar e Enviar para WhatsApp ➔",
-  },
-  en: {
-    nav_nuestros_productos: "Our Products",
-    nav_productos: "Products",
-    nav_quienes_somos: "About Us",
-    btn_entrar: "ENTER STORE ➔",
-    hero_slogan: "YOUR LATIN STORE",
-    hero_subtext:
-      "Latin flavor straight to your home from Portugal to all Europe 🇵🇹🇪🇺",
-    section_productos_titulo: "🇦🇷 Our Argentine Products",
-    section_destacados: "Featured Items",
-    section_historia: "Our History",
-    modal_titulo: "Order Summary",
-    modal_modalidad: "🚚 Delivery Method / Zone:",
-    modal_datos_cliente: "Customer Details for Delivery:",
-    cart_btn: "Order via WhatsApp",
-    btn_confirmar_wa: "Confirm & Send to WhatsApp ➔",
-  },
-};
-
-let idiomaActual = localStorage.getItem("ya_idioma") || "es";
-
-function cambiarIdioma(lang) {
-  idiomaActual = lang;
-  localStorage.setItem("ya_idioma", lang);
-
-  const elementos = document.querySelectorAll("[data-i18n]");
-  elementos.forEach((el) => {
-    const clave = el.getAttribute("data-i18n");
-    if (traducciones[lang] && traducciones[lang][clave]) {
-      el.innerText = traducciones[lang][clave];
-    }
-  });
-
-  const select = document.getElementById("selectIdioma");
-  if (select) select.value = lang;
-}
-
-/* ==========================================================================
    SINTETIZADOR DE SONIDOS (WEB AUDIO API)
    ========================================================================== */
 
@@ -216,47 +223,33 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 
 function obtenerAudioContext() {
-  if (!audioCtx) {
-    audioCtx = new AudioContext();
-  }
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
+  if (!audioCtx) audioCtx = new AudioContext();
+  if (audioCtx.state === "suspended") audioCtx.resume();
   return audioCtx;
 }
 
-// 🔊 1. SONIDO DE CLICK SECO
 function reproducirSonidoClick() {
   try {
     const ctx = obtenerAudioContext();
     const ahora = ctx.currentTime;
-
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-
     osc.type = "sine";
     osc.frequency.setValueAtTime(800, ahora);
     osc.frequency.exponentialRampToValueAtTime(80, ahora + 0.015);
-
     gain.gain.setValueAtTime(0.2, ahora);
     gain.gain.exponentialRampToValueAtTime(0.001, ahora + 0.015);
-
     osc.connect(gain);
     gain.connect(ctx.destination);
-
     osc.start(ahora);
     osc.stop(ahora + 0.015);
-  } catch (e) {
-    console.log("Audio en espera de interacción");
-  }
+  } catch (e) {}
 }
 
-// ✅ 2. SONIDO DE ACEPTACIÓN
 function reproducirSonidoExito() {
   try {
     const ctx = obtenerAudioContext();
     const ahora = ctx.currentTime;
-
     const osc1 = ctx.createOscillator();
     const gain1 = ctx.createGain();
     osc1.type = "sine";
@@ -278,43 +271,31 @@ function reproducirSonidoExito() {
     gain2.connect(ctx.destination);
     osc2.start(ahora + 0.06);
     osc2.stop(ahora + 0.22);
-  } catch (e) {
-    console.log("Audio en espera de interacción");
-  }
+  } catch (e) {}
 }
 
-// 🔘 3. SONIDO POP SUAVE
 function reproducirSonidoPop() {
   try {
     const ctx = obtenerAudioContext();
     const ahora = ctx.currentTime;
-
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-
     osc.type = "sine";
     osc.frequency.setValueAtTime(400, ahora);
     osc.frequency.exponentialRampToValueAtTime(650, ahora + 0.05);
-
     gain.gain.setValueAtTime(0.1, ahora);
     gain.gain.exponentialRampToValueAtTime(0.01, ahora + 0.05);
-
     osc.connect(gain);
     gain.connect(ctx.destination);
-
     osc.start(ahora);
     osc.stop(ahora + 0.05);
-  } catch (e) {
-    console.log("Audio en espera de interacción");
-  }
+  } catch (e) {}
 }
 
-// 🪙 4. SONIDO DE APERTURA DE CAJA
 function reproducirSonidoAperturaCaja() {
   try {
     const ctx = obtenerAudioContext();
     const ahora = ctx.currentTime;
-
     const osc1 = ctx.createOscillator();
     const gain1 = ctx.createGain();
     osc1.type = "sine";
@@ -325,58 +306,31 @@ function reproducirSonidoAperturaCaja() {
     gain1.connect(ctx.destination);
     osc1.start(ahora);
     osc1.stop(ahora + 0.3);
-
-    const osc2 = ctx.createOscillator();
-    const gain2 = ctx.createGain();
-    osc2.type = "triangle";
-    osc2.frequency.setValueAtTime(2093.0, ahora + 0.08);
-    gain2.gain.setValueAtTime(0.3, ahora + 0.08);
-    gain2.gain.exponentialRampToValueAtTime(0.01, ahora + 0.35);
-    osc2.connect(gain2);
-    gain2.connect(ctx.destination);
-    osc2.start(ahora + 0.08);
-    osc2.stop(ahora + 0.35);
-  } catch (e) {
-    console.log("Audio en espera de interacción");
-  }
+  } catch (e) {}
 }
 
-// 🎉 5. SONIDO DE VICTORIA
 function reproducirSonidoVictoria() {
   try {
     const ctx = obtenerAudioContext();
     const ahora = ctx.currentTime;
-
     const notas = [523.25, 659.25, 783.99, 1046.5];
-    const tiempos = [0, 0.08, 0.16, 0.26];
-    const duraciones = [0.1, 0.1, 0.1, 0.35];
-
     notas.forEach((freq, idx) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-
       osc.type = "triangle";
-      osc.frequency.setValueAtTime(freq, ahora + tiempos[idx]);
-
-      gain.gain.setValueAtTime(0.25, ahora + tiempos[idx]);
-      gain.gain.exponentialRampToValueAtTime(
-        0.01,
-        ahora + tiempos[idx] + duraciones[idx],
-      );
-
+      osc.frequency.setValueAtTime(freq, ahora + idx * 0.08);
+      gain.gain.setValueAtTime(0.2, ahora + idx * 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.01, ahora + idx * 0.08 + 0.2);
       osc.connect(gain);
       gain.connect(ctx.destination);
-
-      osc.start(ahora + tiempos[idx]);
-      osc.stop(ahora + tiempos[idx] + duraciones[idx]);
+      osc.start(ahora + idx * 0.08);
+      osc.stop(ahora + idx * 0.08 + 0.2);
     });
-  } catch (e) {
-    console.log("Audio en espera de interacción");
-  }
+  } catch (e) {}
 }
 
 /* ==========================================================================
-   NAVEGACIÓN Y TANGO
+   NAVEGACIÓN Y REPRODUCCIÓN DE CHACARERA
    ========================================================================== */
 
 function mostrarSeccion(idSeccion) {
@@ -392,33 +346,24 @@ function mostrarSeccion(idSeccion) {
 
   secciones.forEach((sec) => {
     const el = document.getElementById(sec);
-    if (el) {
-      if (sec === "portada") {
-        el.style.display = sec === idSeccion ? "flex" : "none";
-      } else {
-        el.style.display = sec === idSeccion ? "block" : "none";
-      }
-    }
+    if (el)
+      el.style.display =
+        sec === idSeccion ? (sec === "portada" ? "flex" : "block") : "none";
   });
 
   if (navbar) navbar.style.display = idSeccion === "portada" ? "none" : "flex";
 
   if (cartFloat) {
-    if (idSeccion === "portada" || idSeccion === "quienes-somos") {
-      cartFloat.style.display = "none";
-    } else {
-      cartFloat.style.display = "block";
-    }
+    cartFloat.style.display =
+      idSeccion === "portada" || idSeccion === "quienes-somos"
+        ? "none"
+        : "block";
   }
 
   if (audioTango) {
     if (idSeccion === "quienes-somos") {
       audioTango.volume = 0.4;
-      audioTango.play().catch((e) => {
-        console.log(
-          "El navegador requiere interacción previa para reproducir audio.",
-        );
-      });
+      audioTango.play().catch((e) => {});
     } else {
       audioTango.pause();
       audioTango.currentTime = 0;
@@ -430,23 +375,16 @@ function mostrarSeccion(idSeccion) {
 
 function entrarALaTienda() {
   const portada = document.getElementById("portada");
-
   reproducirSonidoClick();
-
   if (portada) {
     portada.classList.add("destello-activo");
-    setTimeout(() => {
-      portada.classList.remove("destello-activo");
-    }, 600);
+    setTimeout(() => portada.classList.remove("destello-activo"), 600);
   }
-
-  setTimeout(() => {
-    mostrarSeccion("nuestros-productos");
-  }, 300);
+  setTimeout(() => mostrarSeccion("nuestros-productos"), 300);
 }
 
 /* ==========================================================================
-   GRID DE PRODUCTOS
+   GRID Y CARRUSEL CORREGIDO
    ========================================================================== */
 
 function cambiarCantidadGrid(id, cambio) {
@@ -461,15 +399,16 @@ function renderizarProductos() {
   if (!grid) return;
   grid.innerHTML = "";
 
-  productos.forEach((p) => {
+  productosBase.forEach((p) => {
+    const nombreTraducido = obtenerNombreProducto(p);
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = `
       <div class="card-img-wrapper">
-        <img src="${p.imagen}" alt="${p.nombre}">
+        <img src="${p.imagen}" alt="${nombreTraducido}">
       </div>
       <div class="card-body">
-        <h3 class="card-title">${p.nombre}</h3>
+        <h3 class="card-title">${nombreTraducido}</h3>
         
         <div class="price-qty-row">
           <span class="card-price">€${p.precio.toFixed(2)}</span>
@@ -489,21 +428,17 @@ function renderizarProductos() {
 
 function agregarAlCarrito(id) {
   reproducirSonidoExito();
-  const producto = productos.find((p) => p.id === id);
+  const productoBase = productosBase.find((p) => p.id === id);
   const cant = cantidadesGrid[id];
-  if (producto) {
+  if (productoBase) {
     for (let i = 0; i < cant; i++) {
-      carrito.push(producto);
+      carrito.push(productoBase);
     }
     actualizarContador();
     cantidadesGrid[id] = 1;
     document.getElementById(`qtyGrid-${id}`).innerText = 1;
   }
 }
-
-/* ==========================================================================
-   CARRUSEL 3D
-   ========================================================================== */
 
 function renderizarCarrusel() {
   const mainCard = document.getElementById("mainCard");
@@ -512,29 +447,33 @@ function renderizarCarrusel() {
 
   if (!mainCard) return;
 
-  const total = productos.length;
+  const total = productosBase.length;
   const idxPrev = (slideActual - 1 + total) % total;
   const idxNext = (slideActual + 1) % total;
 
-  const prodMain = productos[slideActual];
-  const prodPrev = productos[idxPrev];
-  const prodNext = productos[idxNext];
+  const prodMain = productosBase[slideActual];
+  const prodPrev = productosBase[idxPrev];
+  const prodNext = productosBase[idxNext];
+
+  const nameMain = obtenerNombreProducto(prodMain);
+  const namePrev = obtenerNombreProducto(prodPrev);
+  const nameNext = obtenerNombreProducto(prodNext);
 
   sidePrev.innerHTML = `
     <div class="carousel-img-wrapper">
-      <img src="${prodPrev.imagen}" alt="${prodPrev.nombre}">
+      <img src="${prodPrev.imagen}" alt="${namePrev}">
     </div>
-    <h4 style="font-size:0.85rem">${prodPrev.nombre}</h4>
+    <h4 style="font-size:0.8rem">${namePrev}</h4>
   `;
 
   mainCard.innerHTML = `
     <div class="carousel-img-wrapper">
-      <img src="${prodMain.imagen}" alt="${prodMain.nombre}">
+      <img src="${prodMain.imagen}" alt="${nameMain}">
     </div>
-    <h3 class="card-title">${prodMain.nombre}</h3>
+    <h3 class="card-title">${nameMain}</h3>
     <p class="card-price">€${prodMain.precio.toFixed(2)}</p>
     
-    <div class="quantity-control-sm" style="justify-content: center; margin: 15px 0;">
+    <div class="quantity-control-sm" style="justify-content: center; margin: 12px 0;">
       <button class="btn-qty-sm" onclick="cambiarCantidadCarrusel(-1)">-</button>
       <span class="qty-number-sm" id="carouselQty">${cantidadCarrusel}</span>
       <button class="btn-qty-sm" onclick="cambiarCantidadCarrusel(1)">+</button>
@@ -545,15 +484,15 @@ function renderizarCarrusel() {
 
   sideNext.innerHTML = `
     <div class="carousel-img-wrapper">
-      <img src="${prodNext.imagen}" alt="${prodNext.nombre}">
+      <img src="${prodNext.imagen}" alt="${nameNext}">
     </div>
-    <h4 style="font-size:0.85rem">${prodNext.nombre}</h4>
+    <h4 style="font-size:0.8rem">${nameNext}</h4>
   `;
 }
 
 function cambiarSlide(direccion) {
   reproducirSonidoPop();
-  const total = productos.length;
+  const total = productosBase.length;
   slideActual = (slideActual + direccion + total) % total;
   cantidadCarrusel = 1;
   renderizarCarrusel();
@@ -568,7 +507,7 @@ function cambiarCantidadCarrusel(cambio) {
 
 function agregarCarruselAlCarrito() {
   reproducirSonidoExito();
-  const prod = productos[slideActual];
+  const prod = productosBase[slideActual];
   for (let i = 0; i < cantidadCarrusel; i++) {
     carrito.push(prod);
   }
@@ -582,7 +521,7 @@ function actualizarContador() {
 }
 
 /* ==========================================================================
-   MODAL DE RESUMEN Y CÁLCULO DINÁMICO DE ENVÍO
+   MODAL Y WHATSAPP
    ========================================================================== */
 
 function actualizarCostoEnvio() {
@@ -604,7 +543,6 @@ function actualizarCostoEnvio() {
     costoEnvioActual = 0;
     esRetiroEnTienda = true;
     esEntregaLocal = false;
-
     if (grupoEnvio) grupoEnvio.style.display = "none";
     if (grupoRetiro) grupoRetiro.style.display = "block";
     if (grupoHorarioLocal) grupoHorarioLocal.style.display = "none";
@@ -637,9 +575,8 @@ function actualizarCostoEnvio() {
       esEntregaLocal = false;
     }
 
-    if (grupoHorarioLocal) {
+    if (grupoHorarioLocal)
       grupoHorarioLocal.style.display = esEntregaLocal ? "flex" : "none";
-    }
   }
 
   renderizarModalContenido();
@@ -647,7 +584,7 @@ function actualizarCostoEnvio() {
 
 function abrirModalResumen() {
   if (carrito.length === 0) {
-    alert("El carrito está vacío. Añade algunos productos antes de pedir.");
+    alert("El carrito está vacío.");
     return;
   }
   reproducirSonidoAperturaCaja();
@@ -657,6 +594,7 @@ function abrirModalResumen() {
 
 function renderizarModalContenido() {
   const container = document.getElementById("orderSummaryContent");
+  if (!container) return;
   container.innerHTML = "";
 
   if (carrito.length === 0) {
@@ -669,11 +607,12 @@ function renderizarModalContenido() {
   let totalProductos = 0;
 
   carrito.forEach((p) => {
-    if (resumen[p.nombre]) {
-      resumen[p.nombre].cantidad += 1;
-      resumen[p.nombre].subtotal += p.precio;
+    const nombreTrad = obtenerNombreProducto(p);
+    if (resumen[nombreTrad]) {
+      resumen[nombreTrad].cantidad += 1;
+      resumen[nombreTrad].subtotal += p.precio;
     } else {
-      resumen[p.nombre] = {
+      resumen[nombreTrad] = {
         id: p.id,
         cantidad: 1,
         precioUnitario: p.precio,
@@ -689,62 +628,40 @@ function renderizarModalContenido() {
     row.innerHTML = `
       <div>
         <span><strong>${resumen[item].cantidad}x</strong> ${item}</span>
-        <button class="btn-remove-item" onclick="eliminarProductoDelCarrito(${resumen[item].id})">🗑️ Quitar 1</button>
+        <button class="btn-remove-item" onclick="eliminarProductoDelCarrito(${resumen[item].id})">🗑️ Quitar</button>
       </div>
       <span>€${resumen[item].subtotal.toFixed(2)}</span>
     `;
     container.appendChild(row);
   }
 
-  // Subtotal Productos
   const subtotalRow = document.createElement("div");
   subtotalRow.classList.add("total-row");
-  subtotalRow.style.fontSize = "1rem";
+  subtotalRow.style.fontSize = "0.95rem";
   subtotalRow.style.color = "#cccccc";
-  subtotalRow.innerHTML = `
-    <span>Productos:</span>
-    <span>€${totalProductos.toFixed(2)}</span>
-  `;
+  subtotalRow.innerHTML = `<span>Productos:</span><span>€${totalProductos.toFixed(2)}</span>`;
   container.appendChild(subtotalRow);
 
-  // Costo Envío
   const envioRow = document.createElement("div");
   envioRow.classList.add("total-row");
-  envioRow.style.fontSize = "1rem";
+  envioRow.style.fontSize = "0.95rem";
   envioRow.style.color = "#cccccc";
 
-  let textoEnvio = "";
-  if (esRetiroEnTienda) {
-    textoEnvio = "<strong style='color:#25d366;'>0,00€ (Gratis)</strong>";
-  } else if (tarifaACoordinar) {
-    textoEnvio =
-      "<strong style='color:#ffe600;'>A calcular en WhatsApp</strong>";
-  } else {
-    textoEnvio =
-      costoEnvioActual === 0
+  let textoEnvio = esRetiroEnTienda
+    ? "<strong style='color:#25d366;'>0,00€ (Gratis)</strong>"
+    : tarifaACoordinar
+      ? "<strong style='color:#ffe600;'>A calcular</strong>"
+      : costoEnvioActual === 0
         ? "<strong style='color:#25d366;'>¡GRATIS!</strong>"
         : `€${costoEnvioActual.toFixed(2)}`;
-  }
 
-  envioRow.innerHTML = `
-    <span>Envío (${zonaSeleccionadaTexto}):</span>
-    <span>${textoEnvio}</span>
-  `;
+  envioRow.innerHTML = `<span>Envío (${zonaSeleccionadaTexto}):</span><span>${textoEnvio}</span>`;
   container.appendChild(envioRow);
 
-  // Total General
   const totalGeneral = totalProductos + costoEnvioActual;
   const totalRow = document.createElement("div");
   totalRow.classList.add("total-row");
-
-  const textoTotalFinal = tarifaACoordinar
-    ? `€${totalProductos.toFixed(2)} + Envío`
-    : `€${totalGeneral.toFixed(2)}`;
-
-  totalRow.innerHTML = `
-    <span>Total a pagar:</span>
-    <span>${textoTotalFinal}</span>
-  `;
+  totalRow.innerHTML = `<span>Total a pagar:</span><span>${tarifaACoordinar ? `€${totalProductos.toFixed(2)} + Envío` : `€${totalGeneral.toFixed(2)}`}</span>`;
   container.appendChild(totalRow);
 }
 
@@ -780,21 +697,19 @@ function enviarPedidoWhatsApp() {
     : "";
 
   if (!nombre || !apellido || !numTelefono) {
-    alert(
-      "Por favor, completa tu Nombre, Apellido y Teléfono antes de continuar.",
-    );
+    alert("Por favor, completa Nombre, Apellido y Teléfono.");
     return;
   }
 
   const telefonoCompleto = `${codigoPais} ${numTelefono}`;
   const nombreCompleto = `${nombre} ${apellido}`;
 
-  let direccion = "";
-  let codigoPostal = "";
-  let ciudad = "";
-  let hora = "";
-  let ampm = "PM";
-  let horarioRetiro = "";
+  let direccion = "",
+    codigoPostal = "",
+    ciudad = "",
+    hora = "",
+    ampm = "PM",
+    horarioRetiro = "";
 
   if (!esRetiroEnTienda) {
     direccion = document.getElementById("inputDireccion")
@@ -808,9 +723,7 @@ function enviarPedidoWhatsApp() {
       : "";
 
     if (!direccion || !codigoPostal || !ciudad) {
-      alert(
-        "Por favor, completa la Dirección, Código Postal y Ciudad para coordinar el envío.",
-      );
+      alert("Por favor, completa Dirección, Código Postal y Ciudad.");
       return;
     }
 
@@ -827,16 +740,13 @@ function enviarPedidoWhatsApp() {
       ? document.getElementById("inputHorarioRetiro").value.trim()
       : "";
     if (!horarioRetiro) {
-      alert(
-        "Por favor, indícanos el día y horario aproximado en que pasarás a retirar.",
-      );
+      alert("Por favor, indícanos el horario aproximado de retiro.");
       return;
     }
   }
 
   reproducirSonidoVictoria();
 
-  // CODIFICACIÓN UNICODE SEGURA DE EMOJIS PARA WHATSAPP
   const emoUser = String.fromCodePoint(0x1f464);
   const emoPin = String.fromCodePoint(0x1f40c);
   const emoStore = String.fromCodePoint(0x1f3ea);
@@ -858,7 +768,7 @@ function enviarPedidoWhatsApp() {
     mensaje += `• *Código Postal:* ${codigoPostal}\n`;
     mensaje += `• *Ciudad:* ${ciudad}\n`;
     if (esEntregaLocal && hora) {
-      mensaje += `• *Preferencia Horaria (Local):* ${hora} ${ampm}\n`;
+      mensaje += `• *Preferencia Horaria:* ${hora} ${ampm}\n`;
     }
   } else {
     mensaje += `\n${emoStore} *MODALIDAD:* Retiro Presencial en Tienda (Tondela)\n`;
@@ -870,15 +780,12 @@ function enviarPedidoWhatsApp() {
   const resumen = {};
 
   carrito.forEach((p) => {
-    if (resumen[p.nombre]) {
-      resumen[p.nombre].cantidad += 1;
-      resumen[p.nombre].subtotal += p.precio;
+    const nombreTrad = obtenerNombreProducto(p);
+    if (resumen[nombreTrad]) {
+      resumen[nombreTrad].cantidad += 1;
+      resumen[nombreTrad].subtotal += p.precio;
     } else {
-      resumen[p.nombre] = {
-        cantidad: 1,
-        precioUnitario: p.precio,
-        subtotal: p.precio,
-      };
+      resumen[nombreTrad] = { cantidad: 1, subtotal: p.precio };
     }
     totalProductos += p.precio;
   });
@@ -888,20 +795,18 @@ function enviarPedidoWhatsApp() {
   }
 
   const totalGeneral = totalProductos + costoEnvioActual;
-  let textoEnvioWA = "";
-  if (tarifaACoordinar) {
-    textoEnvioWA = "A calcular / coordinar por WhatsApp";
-  } else {
-    textoEnvioWA =
-      costoEnvioActual === 0 ? "¡GRATIS!" : `€${costoEnvioActual.toFixed(2)}`;
-  }
+  let textoEnvioWA = tarifaACoordinar
+    ? "A calcular por WhatsApp"
+    : costoEnvioActual === 0
+      ? "¡GRATIS!"
+      : `€${costoEnvioActual.toFixed(2)}`;
 
   mensaje += `\n${emoBox} *Envío:* ${textoEnvioWA}`;
   mensaje += `\n${emoMoney} *Total a pagar:* ${tarifaACoordinar ? `€${totalProductos.toFixed(2)} + Envío` : `€${totalGeneral.toFixed(2)}`}`;
   mensaje += `\n\n${emoCard} *Datos para el Pago:*`;
   mensaje += `\n- MB WAY: +351 927 797 956`;
   mensaje += `\n- IBAN: PT50 0007 0000 0064 7452 9822 3`;
-  mensaje += `\n\n${emoClip} *Adjunto aquí el comprobante de pago para coordinar la entrega. ¡Muchas gracias!*`;
+  mensaje += `\n\n${emoClip} *Adjunto aquí el comprobante de pago. ¡Muchas gracias!*`;
 
   setTimeout(() => {
     const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
@@ -910,7 +815,7 @@ function enviarPedidoWhatsApp() {
   }, 400);
 }
 
-// Inicializar la tienda y cargar el idioma
+// Inicializar
 renderizarProductos();
 renderizarCarrusel();
 mostrarSeccion("portada");

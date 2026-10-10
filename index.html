@@ -2,51 +2,58 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>ya! - Tu Tienda Latina en Europa</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <!-- BARRA DE NAVEGACIÓN SUPERIOR CON SELECTOR DE IDIOMA -->
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR (SOLO LOGO AGRANDADO) -->
     <header class="navbar" id="mainNavbar" style="display: none">
-      <div class="nav-brand" onclick="mostrarSeccion('portada')">
+      <div
+        class="nav-brand"
+        onclick="
+          reproducirSonidoClick();
+          mostrarSeccion('portada');
+        "
+      >
         <img src="assets/img/logo.png" alt="Logo ya!" class="logo-small" />
-        <span>ya!</span>
       </div>
 
       <nav class="nav-links">
         <a
           href="#nuestros-productos"
-          onclick="mostrarSeccion('nuestros-productos')"
+          onclick="
+            reproducirSonidoClick();
+            mostrarSeccion('nuestros-productos');
+          "
           data-i18n="nav_nuestros_productos"
+          class="nav-btn-highlight"
           >Nuestros Productos</a
         >
         <a
           href="#productos"
-          onclick="mostrarSeccion('productos')"
+          onclick="
+            reproducirSonidoClick();
+            mostrarSeccion('productos');
+          "
           data-i18n="nav_productos"
+          class="nav-btn-highlight"
           >Productos</a
         >
         <a
           href="#quienes-somos"
-          onclick="mostrarSeccion('quienes-somos')"
+          onclick="
+            reproducirSonidoClick();
+            mostrarSeccion('quienes-somos');
+          "
           data-i18n="nav_quienes_somos"
+          class="nav-btn-highlight"
           >Quiénes Somos</a
         >
       </nav>
-
-      <!-- SELECTOR DE IDIOMA -->
-      <div class="lang-selector-wrapper">
-        <select
-          id="selectIdioma"
-          onchange="cambiarIdioma(this.value)"
-          class="lang-select"
-        >
-          <option value="es">🇪🇸 ES</option>
-          <option value="pt">🇵🇹 PT</option>
-          <option value="en">🇬🇧 EN</option>
-        </select>
-      </div>
     </header>
 
     <!-- BOTÓN DE WHATSAPP FLOTANTE -->
@@ -67,10 +74,25 @@
     <section id="portada" class="hero-screen">
       <div class="hero-container">
         <img src="assets/img/logo.png" alt="Logo ya!" class="logo-hero" />
-        <h1 class="hero-slogan" data-i18n="hero_slogan">TU TIENDA LATINA</h1>
+        <h1 class="hero-slogan" data-i18n="hero_slogan">TIENDA ARGENTINA</h1>
         <p class="hero-subtext" data-i18n="hero_subtext">
-          Sabor latino directo a tu hogar desde Portugal para toda Europa 🇵🇹🇪🇺
+          Sabor Argentino directo a tu hogar desde Portugal para toda Europa
+          🇵🇹🇪🇺
         </p>
+
+        <!-- SELECTOR DE IDIOMA EN PORTADA -->
+        <div class="lang-selector-hero">
+          <select
+            id="selectIdioma"
+            onchange="cambiarIdioma(this.value)"
+            class="lang-select-large"
+          >
+            <option value="es">🇪🇸 ES</option>
+            <option value="pt">🇵🇹 PT</option>
+            <option value="en">🇬🇧 EN</option>
+          </select>
+        </div>
+
         <button
           class="btn-entrar"
           onclick="entrarALaTienda()"
@@ -89,7 +111,7 @@
     >
       <div class="container">
         <h2 class="section-title" data-i18n="section_productos_titulo">
-          🇦🇷 Nuestros Productos Argentinos
+          🇦🇷 Nuestros Productos
         </h2>
 
         <div class="product-grid" id="productGrid">
@@ -97,7 +119,7 @@
         </div>
 
         <!-- BANNER DE ENVÍOS AL FINAL DEL CATÁLOGO -->
-        <div class="shipping-banner" style="margin-top: 40px; margin-bottom: 0">
+        <div class="shipping-banner">
           <div class="shipping-item">
             <span
               >🏬 <strong>Retiro en Tienda (Tondela):</strong> Gratuito</span
@@ -126,7 +148,7 @@
       </div>
     </section>
 
-    <!-- 3. CARRUSEL CON VISTA PREVIA -->
+    <!-- 3. CARRUSEL CON VISTA PREVIA CORREGIDO -->
     <section id="productos" class="seccion-content" style="display: none">
       <div class="container">
         <h2 class="section-title" data-i18n="section_destacados">
@@ -159,10 +181,10 @@
       </div>
     </section>
 
-    <!-- 4. QUIÉNES SOMOS CON TANGO DE FONDO -->
+    <!-- 4. QUIÉNES SOMOS ENCUADRADO Y CORREGIDO -->
     <section id="quienes-somos" class="seccion-content" style="display: none">
       <audio id="audioTango" loop preload="auto">
-        <source src="assets/audio/tango.mp3" type="audio/mpeg" />
+        <source src="assets/audio/chacarera.mp3" type="audio/mpeg" />
       </audio>
 
       <div class="about-container">
@@ -187,7 +209,7 @@
       </div>
     </section>
 
-    <!-- MODAL DE RESUMEN, FICHA DEL CLIENTE Y PAGO INTERACTIVO -->
+    <!-- MODAL DE RESUMEN Y FICHA DE CLIENTE -->
     <div class="modal-overlay" id="orderModal" style="display: none">
       <div class="modal-box">
         <button class="modal-close" onclick="cerrarModalResumen()">✕</button>
@@ -234,7 +256,6 @@
             >
           </p>
 
-          <!-- Nombre y Apellido -->
           <div class="form-row-2col">
             <input
               type="text"
@@ -252,7 +273,6 @@
             />
           </div>
 
-          <!-- Teléfono con Código de País y Email -->
           <div class="form-row-2col">
             <div class="phone-input-group">
               <select id="selectCodigoPais" class="modal-input select-code">
@@ -281,7 +301,6 @@
             />
           </div>
 
-          <!-- CAMPOS EXCLUSIVOS PARA ENVÍO A DOMICILIO -->
           <div id="grupoEnvioDomicilio" style="display: none">
             <div class="form-row">
               <input
@@ -306,7 +325,6 @@
               />
             </div>
 
-            <!-- HORARIO EXCLUSIVO PARA ENTREGAS LOCALES -->
             <div
               class="form-row-time"
               id="grupoHorarioLocal"
@@ -328,7 +346,6 @@
             </div>
           </div>
 
-          <!-- CAMPO EXCLUSIVO PARA RETIRO EN TIENDA -->
           <div id="grupoRetiroTienda" style="display: block">
             <div class="form-row">
               <input
@@ -341,13 +358,11 @@
           </div>
         </div>
 
-        <!-- INFORMACIÓN DE PAGO MEJORADA CON MB WAY Y COPIADO -->
         <div class="payment-info">
           <p class="payment-title">
             📲 <strong>Métodos de pago aceptados:</strong>
           </p>
 
-          <!-- MB WAY CON OPCIÓN DE ABRIR Y COPIAR -->
           <div class="payment-method-row">
             <div class="method-label">
               <span class="mbway-badge">MB WAY</span>
@@ -369,7 +384,6 @@
             </div>
           </div>
 
-          <!-- IBAN CON BOTÓN DE COPIADO RÁPIDO -->
           <div class="payment-method-row">
             <div class="method-label">
               <span class="iban-badge">IBAN</span>
@@ -399,7 +413,6 @@
       </div>
     </div>
 
-    <!-- PIE DE PÁGINA -->
     <footer>
       <p>
         &copy; 2026 <strong>ya!</strong> - Tu Tienda Latina. Todos los derechos
